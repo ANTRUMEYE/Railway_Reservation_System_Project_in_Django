@@ -1,0 +1,17 @@
+{% extends 'features/srbase.html'%}
+{% block body%}
+<h2 style="text-align:center;"><span class="sty" style="font-size:50px;color:yellow;">Add Train</span></h2>
+
+
+<center><form action="" method="post">
+    {%csrf_token%}
+    <span style="color:yellow;">Train Number:</span><input type="text" name="tno">
+    <span style="color:yellow;">Train Name:</span><input type="text" name="tname">
+    <span style="color:yellow;">Select Route:</span><select name="rid" style="color:black;">
+    {%for i in tr%}
+        <option value="{{i.rid}}">{{i.ostation}}-{{i.dstation}}</option>
+    {%endfor%}
+</select>
+    <input type="submit" class="btn btn-success">
+</form></center>
+{%endblock%}

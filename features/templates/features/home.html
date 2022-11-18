@@ -1,0 +1,31 @@
+{% extends 'features/base.html' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row1 row">
+            <div class="col-lg-4">
+                <span class="sty" style="font-size:40px; color: yellow;">Railway Reservation System</span>
+            </div>
+            <div class="col-lg-6"></div>
+            <div class="col-lg-1"><span class="sty" style="font-size:17px;">Welcome:{{request.user}}</span></div>
+            <div class="col-lg-1"><a href="logout"><button class="btn btn-danger">Log Out</button> </a></div>
+        </div>
+        <div class="row" style="margin-top:0px; opacity: 80%; background-color: blue;">
+            <div class="col-lg-1"></div>
+            {% if request.user.is_superuser %}
+            <a href="addT"><button class="btn btn-basic">Add Trains</button></a>
+            <a href="addST"><button class="btn btn-primary">Add Stations</button></a>
+            <a href="addR"><button class="btn btn-warning">Add Route</button></a>
+            <a href="addRT"><button class="btn btn-default">Add Route Station</button></a>
+
+            {% endif %}
+             <a href="search"><button class="btn btn-success">Search/Book Trains</button></a>
+             <a href="schedule"><button class="btn btn-info">Check Schedule</button></a>
+             <a href="pnr"><button class="btn btn-warning">Check PNR</button></a>
+             <a href="cancel"><button class="btn btn-danger">Cancel Seat</button></a>
+
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+
+{% endblock %}

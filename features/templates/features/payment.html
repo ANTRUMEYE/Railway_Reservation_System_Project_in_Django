@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body
+        {
+            height:650px;
+           background-image:url('{% static "images/pay.jpg"%}');
+           background-repeat:no-repeat;
+           background-size:100% 100%;
+
+        }
+        .payform{
+                    background-color:rgba(0,0,0,0.3);
+                    height:450px;
+                }
+         .white
+         {
+            color:white;
+            }
+    </style>
+</head>
+<body>
+<h1 style="text-align:center;font-family:sans-seriff">Payment Gateway</h1>
+<form action="book/" method="POST">
+    {%csrf_token%}
+    <div class="row">
+    <div class="col-lg-6" style="background-color:rgba(256,256,256,0.4);height:450px;">
+        <h3 style="text-align:center">Check Details</h3>
+        <div class="col-lg-6">
+
+        Train no   :<br/><input type="text" value="{{tno}}" readonly name="tno"><br/><br/>
+    Train name :<br/><input type="text" value="{{tname}}" readonly name="tname"><br/><br/>
+    From       :<br/><input type="text" value="{{src}}" readonly name="src"><br/><br/>
+    To         :<br/><input type="text" value="{{des}}" readonly name="des"><br/><br/>
+
+    </div>
+    <div class="col-lg-6">
+    Class      :<br/><input type="text" value="{{cls}}" readonly name="cls"><br/><br/>
+    No of Seats:<br/><input type="text" value="{{nos}}" readonly name="nos"><br/><br/>
+    Date       :<br/><input type="text" value="{{dt}}" readonly name="date"><br/><br/>
+    Total Price:<br/><input type="text" value="{{price}}" readonly name="price"><br/>
+    </div>
+
+    </div>
+    <div class="col-lg-6 payform">
+        <h3 style="text-align:center">Payment Method</h3>
+    <select id="selectMe" name="select">
+      <option value="option1">Credit or Debit card</option>
+      <option value="option2">Paytm</option>
+
+    </select>
+       <div id="option1" class="group">
+           <span class="white">Card Number:</span><br/>
+           <input type="text" name="crd"><br/><br>
+           <span class="white">Name on Card:</span><br/>
+           <input type="text" name="nam"><br/><br/>
+               <span class="white">CVV Number:</span><br/>
+           <input type="password" maxlength="3" name="cvv"><br/><br/>
+               <span class="white">Expiry:</span><br/>
+           <input type="text" placeholder="MM/YY" name="exp"><br/><br/>
+
+
+
+       </div>
+       <div id="option2" class="group">
+           <h3><span class="white">Click to proceed to Paytm Portal for payment</span></h3>
+       </div>
+    <input type="submit" value="Confirm Book" >
+    </div>
+        </div>
+</form>
+ <script>
+    $(document).ready(function () {
+  $('.group').hide();
+  $('#option1').show();
+  $('#selectMe').change(function () {
+    $('.group').hide();
+    $('#'+$(this).val()).show();
+  })
+});
+</script>
+</body>
+</html>

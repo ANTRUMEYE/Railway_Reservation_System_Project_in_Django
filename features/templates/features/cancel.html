@@ -1,0 +1,47 @@
+{% extends 'features/srbase.html' %}
+{%block body%}
+    <h1 style="text-align:center;font-family:sans-seriff; color: yellow;">Current Reservations</h1>
+
+        {%csrf_token%}
+    <div class="container">
+    {% for i in res %}
+        <div class="tick" style="font-size:13px;color:white;padding:18px;padding-left:40px;">
+
+            &nbsp&nbspDate       :{{i.date}}<br/>
+            &nbsp&nbspTrain no   :{{i.tno}}<br/>
+            &nbsp&nbspPNR        :{{i.pnr}}<br/>
+            &nbsp&nbspSrc        :{{i.src}}<br/>
+            &nbsp&nbspDes        :{{i.des}}<br/>
+                            <button class="btn btn-danger" value="{{i.pnr}}" style="float:right;border-radius:50%;" onclick="y(this.value)"type="submit">Cancel</button><br/>
+
+        </div>
+            <br/><br/>
+        {%endfor%}
+
+</div>
+
+     <script>
+     function y(vl)
+    {
+
+
+
+        $.ajax({
+            type:'POST',
+            url:'cancel/cn/',
+            data:{
+                    id:vl,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+                  },
+        success:function(data){
+
+            alert("Cancelled Tickets||Amount Refunded:"+data);
+            window.location.href=window.location.href;
+                               }
+            }
+                )
+
+    }
+    </script>
+{%endblock%}

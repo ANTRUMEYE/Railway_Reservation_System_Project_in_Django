@@ -1,0 +1,21 @@
+{% extends 'features/srbase.html'%}
+{% block body%}
+<h2 style="text-align:center;"><span class="sty" style="font-size:50px;color:yellow;">Add Routes</span></h2>
+
+
+<center><form action="" method="post">
+    {%csrf_token%}
+    <span style="color:yellow;">Route ID:</span><input type="text" name="rid">
+    <span style="color:yellow;">Origin Station:</span><select name="ostation">
+        {%for i in stn%}
+        <option value="{{i.sid}}">{{i.sname}}</option>
+        {%endfor%}
+    </select>
+    <span style="color:yellow;">Destination Station:</span><select name="dstation">
+        {%for i in stn%}
+        <option value="{{i.sid}}">{{i.sname}}</option>
+        {%endfor%}
+    </select>
+    <input type="submit" class="btn btn-success">
+</form></center>
+{%endblock%}

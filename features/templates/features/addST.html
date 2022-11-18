@@ -1,0 +1,12 @@
+{% extends 'features/srbase.html'%}
+{% block body%}
+<h2 style="text-align:center;"><span class="sty" style="font-size:50px;color:yellow;">Add Stations</span></h2>
+
+
+<center><form action="" method="post">
+    {%csrf_token%}
+    <span style="color:yellow;">Station ID:</span><input type="text" name="sid">
+    <span style="color:yellow;">Station Name:</span><input type="text" name="sname">
+    <input type="submit" class="btn btn-success">
+</form></center>
+{%endblock%}

@@ -1,0 +1,84 @@
+{% extends 'features/srbase.html' %}
+{%block body%}
+{%csrf_token%}
+<h2 style="text-align:center;"><span class="sty" style="font-size:50px;color:yellow;">Search Trains</span></h2>
+    <br/>
+    <br/>
+    <br/>
+    <center><form class="tform" action="book1/" method="POST" style="background-color: green; opacity: 70%;">
+        {%csrf_token%}
+        <div class="hd" style="margin-left: 0px;">
+            <input type="text" value="{{src}}" name="src" readonly><span style="color: white;">======></span><input type="text" value="{{des}}" name="des" readonly><br/></br>
+            <b style="color: white;">DATE OF JOURNEY:</b> <input type="text" placeholder="DD/MM/YYYY" id="dt" name="date"><br/>
+        </div>
+    <h1 id="123"></h1>
+        <span hidden id="od">{{o}}</span>
+  	<table style="margin-left:50px;font-size:20px;color:black;" class="table-striped table-bordered table-hover">
+        <tr class="sty" style="color:black;padding:10px;">
+           <th style="padding:10px;">Train Number</th>
+            <th style="padding:10px;">Arrival Station</th>
+            <th style="padding:10px;">Arrival Time</th>
+            <th style="padding:10px;">Select Class</th>
+            <th style="padding:10px;">Availibility</th>
+            <th style="padding:10px;">Fare/Seats</th>
+            <th style="padding:10px;">No of Seats</th>
+            <th style="padding:10px;">Book</th>
+        </tr>
+
+    {% for i in data %}
+        <tr>
+            <td style="padding:15px;"><h5 ><b>{{i.tno}}</b></h5></td>
+             <td style="padding:15px;"><h5><b>{{i.sid}}<b/></h5></td>
+            <td style="padding:15px;"><h5><b>{{i.atime}}</b></h5></td>
+            <td><h6>
+                <select id="{{i.tno}}" onchange="x(this.value,this.id)" name="cls{{i.tno}}">
+                    <option value="NONE">NONE</option>
+                    <option value="AC">AC</option>
+                    <option value="2S">2S</option>
+                    <option value="3A">3A</option>
+                    <option value="SL">SL</option>
+                </select>
+            </h6></td>
+            <td ><h6 id="{{i.tno}}1"></h6></td>
+            <td><input id="{{i.tno}}p1" type="text" name="price{{i.tno}}" value="" readonly > </h6></td>
+            <td><input type="number" id="{{i.tno}}-2" name="nos{{i.tno}}"/></td>
+            <td>
+                <button type="submit" class="btn btn-success"  value="{{i.tno}}" name="bk">Book Seat</button>
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table>
+
+        <br/><br/><br/>
+        </form></center>
+  <script>
+    function x(vl,z)
+    {
+
+        var da=document.getElementById('dt').value;
+        var o=document.getElementById('od').innerHTML;
+        $.ajax({
+            type:'POST',
+            url:'search/trains/cva/',
+            data:{  tno:z,
+                    cls:vl,
+                    od:o,
+                    dt:da,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+                  },
+        success:function(data){
+            var read=data.read;
+            var price=data.price;
+            $('#'+z+'1').html(data.read+" Seats");
+
+            $('#'+z+'p1').val(price);
+                               }
+            }
+                )
+    }
+      </script>
+
+
+        {%endblock%}
